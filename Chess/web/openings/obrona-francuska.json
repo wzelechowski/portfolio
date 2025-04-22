@@ -1,0 +1,23 @@
+{
+    "moves": [
+        { "oldPosition": "e2", "newPosition": "e4" },
+        { "oldPosition": "e7", "newPosition": "e6" }
+    ],
+    "title": "Obrona Francuska",
+    "desc": [
+    "Obrona francuska to solidne i strategiczne otwarcie, które rozpoczyna się od ruchów:",
+    "1. e4 e6. Czarny pionek na e6 przygotowuje kontratak na centrum białych i ma na celu",
+    "wzmocnienie struktury pionowej. Jest to otwarcie, które charakteryzuje się twardą obroną,",
+    "gdzie czarne dążą do neutralizacji inicjatywy białych.",
+    "Jednym z kluczowych elementów obrony francuskiej jest blokada centrum przez czarne pionki,",
+    "szczególnie na d5, co może prowadzić do tzw. 'nieruchomej' pozycji, w której białe muszą",
+    "szukać aktywności na innych skrzydłach.",
+    "Francuska obrona ma różne warianty, w tym klasyczny, w którym białe grają 3. Nc3",
+    "oraz tzw. wariant Winawera, który jest bardziej agresywny i prowadzi do bardziej złożonych",
+    "pozycji. Wariant Tarrasch to kolejna opcja, w której czarne starają się uzyskać silne",
+    "kontrolowanie centrum.",
+    "Obrona francuska była stosowana przez wielu wielkich mistrzów, takich jak Viktor Korchnoi",
+    "czy Anatolij Karpow, którzy dowiedli jej solidności na najwyższym poziomie."
+]
+
+}

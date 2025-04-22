@@ -1,0 +1,17 @@
+{
+    "moves": [
+        { "oldPosition": "e2", "newPosition": "e4" },
+        { "oldPosition": "c7", "newPosition": "c6" }
+    ],
+    "title": "Obrona Caro-Kanna",
+    "desc": [
+        "Obrona Caro-Kanna to solidne i obronne otwarcie, które pozwala czarnym na stopniowe wyrównanie szans,",
+        "nie decydując się na szybkie ryzyko. Zaczyna się od posunięcia 1. e4 c6, które przygotowuje c7-c5, atakując",
+        "centrum białych i budując solidną obronę.",
+        "Obrona Caro-Kanna jest znana ze swojej stabilności i mocnych struktur, które utrudniają białym przełamanie.",
+        "Czarnym zależy na rozwoju figur z zachowaniem silnej pozycji obronnej, a ich plan to stopniowy kontratak.",
+        "Warianty takie jak Wariant Advance, Wariant wymiany i Wariant Panowa oferują różne opcje gry,",
+        "z których każda ma swoje unikalne zalety. To jedno z najbardziej szanowanych otwarć przez wielu mistrzów.",
+        "Obrona Caro-Kanna była wykorzystywana przez takich graczy jak Anatolij Karpow czy Mikhail Botvinnik."
+    ]
+}

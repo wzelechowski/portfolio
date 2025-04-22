@@ -1,0 +1,19 @@
+{
+    "moves": [
+        { "oldPosition": "d2", "newPosition": "d4" },
+        { "oldPosition": "d7", "newPosition": "d5" },
+        { "oldPosition": "c2", "newPosition": "c4" }
+    ],
+    "title": "Gambit Hetmański",
+    "desc": [
+        "Gambit Hetmański to jeden z najstarszych i najbardziej szanowanych gambitów, który poświęca pionka c4,",
+        "by uzyskać szybki rozwój figur i kontrolować centrum. Zaczyna się od posunięcia 1. d4 d5 2. c4.",
+        "Biały pionek na c4 jest ofiarowywany, ale w zamian biały uzyskuje dużą aktywność i presję na centrum.",
+        "Czarnym przypada decyzja, czy przyjąć gambit, co prowadzi do dynamicznej gry, czy też go odrzucić,",
+        "uzyskując solidną, ale mniej aktywną pozycję.",
+        "Gambit Hetmański jest często wybierany przez graczy preferujących strategiczną grę z możliwością wykorzystania",
+        "nadmiaru przestrzeni i aktywności figur. Warianty takie jak Wariant klasyczny, Wariant kontynuacji z przejęciem",
+        "oraz Wariant Karpowa są szeroko analizowane w teorii.",
+        "Gambit Hetmański jest znany z popularności wśród mistrzów takich jak Mikhail Tal, Garri Kasparow oraz Anatolij Karpow."
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "moves": [
+        { "oldPosition": "e2", "newPosition": "e4" },
+        { "oldPosition": "e7", "newPosition": "e5" },
+        { "oldPosition": "g1", "newPosition": "f3" },
+        { "oldPosition": "b8", "newPosition": "c6" },
+        { "oldPosition": "f1", "newPosition": "c4" }
+    ],
+    "title": "Partia Włoska",
+    "desc": [
+        "Partia Włoska jest jednym z najstarszych i najbardziej popularnych otwarć, które koncentruje się na szybkim rozwoju figur.",
+        "Zaczyna się od posunięcia 1. e4 e5 2. Nf3 Nc6 3. Bc4, gdzie biały goniec wywiera presję na punkt f7,",
+        "co stanowi jeden z najsłabszych punktów czarnych w początkowej fazie partii.",
+        "Partia Włoska prowadzi do wielu klasycznych pozycji, w których obie strony starają się przejąć kontrolę nad centrum.",
+        "Czarnym zależy na wyważeniu tego planu poprzez rozwój swoich figur i kontratak.",
+        "Warianty takie jak Wariant Giuoco Piano i Wariant Evans Gambit wprowadzają agresywniejszy styl gry,",
+        "gdzie białe podejmują ryzyko, by uzyskać przewagę materialną.",
+        "Partia Włoska była popularna u mistrzów takich jak Garri Kasparow oraz Bobby Fischer."
+    ]
+}

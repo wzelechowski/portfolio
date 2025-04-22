@@ -1,0 +1,19 @@
+{
+    "moves": [
+        { "oldPosition": "e2", "newPosition": "e4" },
+        { "oldPosition": "c7", "newPosition": "c5" }
+    ],
+    "title": "Obrona Sycylijska",
+    "desc": [
+        "Obrona sycylijska to jedno z najbardziej dynamicznych i popularnych otwarć w szachach,",
+        "które pozwala czarnym na agresywną grę już od pierwszych ruchów.",
+        "Zaczyna się od posunięcia 1. e4 c5, które atakuje centrum i przygotowuje kontratak.",
+        "Czarny pionek na c5 nie tylko podważa dominację białych w centrum, ale także tworzy",
+        "asymetryczną strukturę, dającą możliwość aktywnego rozwoju figur.",
+        "Jest to otwarcie, które wymaga dużej precyzji w planowaniu i znajomości licznych",
+        "wariantów, w tym takich jak Najdorf, Dragon czy Scheveningen, które oferują różnorodne",
+        "opcje strategiczne i taktyczne.",
+        "Obrona sycylijska była ulubioną bronią takich mistrzów jak Bobby Fischer czy Garri Kasparow,",
+        "którzy udowodnili jej skuteczność w partiach najwyższego szczebla."
+    ]
+}

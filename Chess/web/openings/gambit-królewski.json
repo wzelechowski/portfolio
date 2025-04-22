@@ -1,0 +1,18 @@
+{
+    "moves": [
+        { "oldPosition": "e2", "newPosition": "e4" },
+        { "oldPosition": "e7", "newPosition": "e5" },
+        { "oldPosition": "f2", "newPosition": "f4" }
+    ],
+    "title": "Gambit Królewski",
+    "desc": [
+        "Gambit Królewski jest jednym z najbardziej romantycznych i agresywnych otwarć w historii szachów,",
+        "gdzie biały poświęca pionka, by uzyskać szybki rozwój i atak na króla przeciwnika. Zaczyna się od posunięcia 1. e4 e5 2. f4.",
+        "Biały ofiarowuje pionka na f4, co pozwala na otwarcie linii i szybkie przesunięcie figur w stronę króla.",
+        "Czarnym natomiast pozostaje decyzja, czy przyjąć gambit, co prowadzi do ryzykownej struktury, czy też go odrzucić,",
+        "przechodząc do bardziej stabilnej obrony.",
+        "Gambit Królewski prowadzi do ostrych pozycji, w których decyzje muszą być podejmowane bardzo szybko.",
+        "Warianty takie jak Wariant Mory oraz Wariant Karpowa są klasycznymi przykładami na różne podejścia w tym gambicie.",
+        "Gambit Królewski był stosowany przez wielkich mistrzów jak Bobby Fischer, Paul Morphy czy Adolf Anderssen."
+    ]
+}

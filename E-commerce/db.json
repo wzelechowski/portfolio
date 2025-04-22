@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "Smartphone",
+        "description": "High-end smartphone with 128GB storage",
+        "unit_price": 699.99,
+        "unit_weight": 0.4,
+        "category_id": 1
+    },
+    {
+        "id": 2,
+        "name": "Laptop",
+        "description": "15-inch laptop with 16GB RAM and 512GB SSD",
+        "unit_price": 1199.99,
+        "unit_weight": 2.0,
+        "category_id": 1
+    },
+    {
+        "id": 3,
+        "name": "T-shirt",
+        "description": "Cotton T-shirt available in multiple sizes",
+        "unit_price": 19.99,
+        "unit_weight": 0.2,
+        "category_id": 2
+    },
+    {
+        "id": 4,
+        "name": "Jeans",
+        "description": "Slim-fit jeans for everyday wear",
+        "unit_price": 49.99,
+        "unit_weight": 0.8,
+        "category_id": 2
+    },
+    {
+        "id": 5,
+        "name": "Novel",
+        "description": "Bestselling novel with 300 pages",
+        "unit_price": 14.99,
+        "unit_weight": 0.5,
+        "category_id": 3
+    },
+    {
+        "id": 6,
+        "name": "Cookbook",
+        "description": "Recipe book with 100+ dishes",
+        "unit_price": 24.99,
+        "unit_weight": 0.7,
+        "category_id": 3
+    }
+]
