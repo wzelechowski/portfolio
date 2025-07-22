@@ -21,3 +21,7 @@ W tym repozytorium zebrałem projekty, w których brałem udział – zarówno i
 - **Frameworki i biblioteki**: Spring Boot, Vue.js, FlutterFlow, Node.js, JavaFX, p5.js, Django, Django DRF
 - **Bazy danych**: PostgreSQL, Supabase, MySQL
 - **Inne**: Docker, Git, GitHub, REST API, OOP
+
+## Kontakt
+
+- 📧 Email: ZeloWiktor@wp.pl
