@@ -12,6 +12,7 @@ W tym repozytorium zebrałem projekty, w których brałem udział – zarówno i
 | [👶 SitterProject](./SitterProject) | System do wynajmu opiekunek do dzieci | C++ |
 | [🔢 Sudoku](./Sudoku) | Gra logiczna Sudoku z interfejsem graficznym | Java, JavaFX |
 | [🆘 SKPH](./System-koordynacji-pomocy-humanitarnej-SKPH-) | System do zarządzania pomocą humanitarną | Spring Boot, Vue.js |
+| [📫 Rently](./Rently) | Aplikacja do wynajmu mieszkań | Spring Boot |
 
 ---
 
