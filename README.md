@@ -25,4 +25,4 @@ W tym repozytorium zebrałem projekty, w których brałem udział – zarówno i
 
 ## Kontakt
 
-- 📧 Email: ZeloWiktor@wp.pl
+- 📧 Email: wiktor.zelechowski.2004@gmail.com
