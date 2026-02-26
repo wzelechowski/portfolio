@@ -1,0 +1,275 @@
+services:
+
+  postgres:
+    container_name: pizzeria_postgres
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+      - ./db/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    ports:
+      - "15432:5432"
+    restart: unless-stopped
+    networks:
+      - backend
+
+  pgadmin:
+    container_name: pizzeria_pgadmin
+    image: dpage/pgadmin4:9.3
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+      - ./db/docker_pgadmin_servers.json:/pgadmin4/servers.json
+    ports:
+      - "15433:80"
+    entrypoint:
+      - /bin/sh
+      - -c
+      - "/bin/echo 'postgres:5432:*:postgres:password' > /tmp/pgpassfile && chmod 600 /tmp/pgpassfile && /entrypoint.sh"
+    restart: unless-stopped
+    networks:
+      - backend
+    
+  mongo:
+    container_name: mongo
+    image: mongo:7
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo:/data/db
+    networks:
+      - backend
+
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express:latest
+    restart: unless-stopped
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      ME_CONFIG_SITE_BASEURL: "/"
+    ports:
+      - "18081:8081"
+    depends_on:
+      - mongo
+    networks:
+      - backend
+
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "no"]
+    networks:
+      - backend
+
+  config-server:
+    container_name: config-server
+    build: ./config
+    ports:
+      - "8888:8888"
+    depends_on:
+      - postgres
+    networks:
+      - backend
+
+  eureka-server:
+    container_name: eureka-server
+    build: ./eureka
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-server
+    networks:
+      - backend
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:25.0.2
+    restart: always
+    ports:
+      - "8443:8443"
+    networks:
+      - backend
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak_db
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: password
+      KC_HOSTNAME: keycloak
+      KC_HTTP_PORT: 8443
+      KC_HTTP_ENABLED: true
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
+    command:
+      - start-dev
+      - --import-realm
+    volumes:
+      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm.json:ro
+    depends_on:
+      - postgres
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - backend
+
+  menu:
+    container_name: menu-service
+    build: ./menu
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+      - config-server
+      - eureka-server
+    networks:
+      - backend
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - SPRING_PROFILES_ACTIVE=docker
+
+  order:
+    container_name: order-service
+    build: ./order
+    ports:
+      - "8082:8082"
+    depends_on:
+      - postgres
+      - config-server
+      - eureka-server
+    networks:
+      - backend
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - SPRING_PROFILES_ACTIVE=docker
+
+  delivery:
+    container_name: delivery-service
+    build: ./delivery
+    ports:
+      - "8083:8083"
+    depends_on:
+      - postgres
+      - config-server
+      - eureka-server
+    networks:
+      - backend
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - SPRING_PROFILES_ACTIVE=docker
+
+  user:
+    container_name: user-service
+    build: ./user
+    ports:
+      - "8086:8086"
+    depends_on:
+      - postgres
+      - config-server
+      - eureka-server
+    networks:
+      - backend
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - SPRING_PROFILES_ACTIVE=docker
+
+
+  promotion:
+    container_name: promotion-service
+    build: ./promotions
+    ports:
+      - "8085:8085"
+    depends_on:
+      - postgres
+      - config-server
+      - eureka-server
+    networks:
+      - backend
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - SPRING_PROFILES_ACTIVE=docker
+
+  ai-service:
+    container_name: ai-service
+    build:
+      context: ./ai
+    ports:
+      - "8000:8000"
+    environment:
+      ENV: docker
+      MONGO_URL: mongodb://root:example@mongo:27017/?authSource=admin
+      MONGO_DB: ai_db
+      RABBIT_HOST: rabbitmq
+      RABBIT_PORT: 5672
+    depends_on:
+      - mongo
+      - rabbitmq
+    networks:
+      - backend
+
+  ai-consumer:
+    container_name: ai-consumer
+    build:
+      context: ./ai
+      dockerfile: Dockerfile.consumer
+    environment:
+      ENV: docker
+      MONGO_URL: mongodb://root:example@mongo:27017/?authSource=admin
+      MONGO_DB: ai_db
+      RABBIT_HOST: rabbitmq
+      RABBIT_PORT: 5672
+    depends_on:
+      - ai-service
+      - mongo
+      - rabbitmq
+    restart: unless-stopped
+    networks:
+      - backend
+
+
+  gateway:
+    container_name: gateway
+    build: ./gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+      - config-server
+      - menu
+      - order
+    restart: on-failure
+    networks:
+      - backend
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - SPRING_PROFILES_ACTIVE=docker
+
+volumes:
+  postgres:
+  pgadmin:
+  keycloak:
+  mongo:
+
+networks:
+  backend:
+    driver: bridge

@@ -1,0 +1,23 @@
+spring:
+  config:
+    import: "optional:configserver:http://config-server:8888"
+  data:
+    redis:
+      host: redis
+      port: 6379
+      client-type: lettuce
+      connect-timeout: 2s
+      timeout: 5s
+      lettuce:
+        pool:
+          min-idle: 1
+          max-idle: 5
+          max-active: 20
+  cloud:
+    config:
+      fail-fast: true
+      retry:
+        max-attempts: 20
+        initial-interval: 2000
+        multiplier: 1.5
+        max-interval: 10000

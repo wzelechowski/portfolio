@@ -1,0 +1,30 @@
+spring:
+  config:
+    import: "optional:configserver:http://localhost:8888"
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      client-type: lettuce
+      database: 3
+      connect-timeout: 2s
+      timeout: 5s
+      lettuce:
+        pool:
+          min-idle: 1
+          max-idle: 5
+          max-active: 20
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  datasource:
+    url: jdbc:postgresql://localhost:15432/delivery_db
+    username: postgres
+    password: password
+
+logging:
+  level:
+    org.springframework.cache: TRACE
+    org.springframework.data.redis.cache: TRACE

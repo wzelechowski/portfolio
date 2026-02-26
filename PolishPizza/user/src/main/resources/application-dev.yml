@@ -1,0 +1,13 @@
+spring:
+  config:
+    import: "optional:configserver:http://localhost:8888"
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  datasource:
+    username: postgres
+    password: password
+    url: jdbc:postgresql://127.0.0.1:15432/user_db

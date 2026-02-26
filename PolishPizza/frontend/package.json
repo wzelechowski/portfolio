@@ -1,0 +1,37 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start --port 3000",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web --port 3000"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^15.0.3",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-navigation/material-top-tabs": "^7.4.12",
+    "axios": "^1.13.2",
+    "expo": "~54.0.31",
+    "expo-auth-session": "~7.0.10",
+    "expo-crypto": "~15.0.8",
+    "expo-router": "~6.0.21",
+    "expo-secure-store": "~15.0.8",
+    "expo-status-bar": "~3.0.9",
+    "expo-vector-icons": "10.0.1",
+    "expo-web-browser": "~15.0.10",
+    "jwt-decode": "^4.0.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-pager-view": "6.9.1",
+    "react-native-tab-view": "^4.2.2",
+    "react-native-web": "^0.21.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.1.0",
+    "typescript": "~5.9.2"
+  },
+  "private": true
+}

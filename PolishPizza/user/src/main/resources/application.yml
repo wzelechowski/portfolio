@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: user-service
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+server:
+  servlet:
+    context-path: /api/v1/user
+  port: 8086
+
+keycloak:
+  server-url: http://keycloak:8443
+  realm: pizzeria
+  resource: pizzeria-app
+  credentials:
+    secret: yWouqgKVJ5yIMnpZLQYBb1lPyNjMYTlv
