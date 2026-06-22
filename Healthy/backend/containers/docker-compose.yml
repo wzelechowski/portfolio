@@ -1,0 +1,417 @@
+name: Healthy
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+  postgres:
+    container_name: healthy_postgres
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+      - ./db/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    ports:
+      - "15432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - backend
+
+  pgadmin:
+    container_name: healthy_pgadmin
+    image: dpage/pgadmin4:8.14
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+      - ./db/docker_pgadmin_servers.json:/pgadmin4/servers.json
+    ports:
+      - "15433:80"
+    entrypoint:
+      - /bin/sh
+      - -c
+      - "/bin/echo 'postgres:5432:*:postgres:password' > /tmp/pgpassfile && chmod 600 /tmp/pgpassfile && /entrypoint.sh"
+    restart: unless-stopped
+    networks:
+      - backend
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak-server
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak_db
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: password
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
+      KC_HTTP_PORT: 9090
+      KC_HTTP_ENABLED: true
+    command: start-dev --import-realm
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./keycloak-config/realm-export.json:/opt/keycloak/data/import/realm-export.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9090/health/ready || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - backend
+
+  vital_signs_db:
+    image: influxdb:latest
+    container_name: vital_signs_db
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: adminpassword123
+      DOCKER_INFLUXDB_INIT_ORG: health_monitoring
+      DOCKER_INFLUXDB_INIT_BUCKET: vital_signs
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: super-secret-auth-token-123
+    ports:
+      - "8086:8086"
+    volumes:
+      - vital_signs_data:/var/lib/influxdb2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8086/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend
+
+  message_broker:
+    image: rabbitmq:4.1-management
+    container_name: message_broker
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: adminpassword
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend
+
+  config-server:
+    container_name: config-server
+    build: ../config
+    ports:
+      - "8888:8888"
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -q http://localhost:8888/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    networks:
+      - backend
+
+  eureka-server:
+    container_name: eureka-server
+    build: ../eureka
+    ports:
+      - "8761:8761"
+    depends_on:
+      config-server:
+        condition: service_healthy
+      message_broker:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -q http://localhost:8761/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    networks:
+      - backend
+
+  gateway:
+    container_name: gateway
+    build: ../api-gateway
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      message_broker:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  auth:
+    container_name: auth-service
+    build: ../auth
+    ports:
+      - "8087:8087"
+    networks:
+      - backend
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      message_broker:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  patients:
+    container_name: patient-service
+    build: ../patients
+    ports:
+      - "8088:8088"
+    networks:
+      - backend
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      message_broker:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  medical-staff:
+    container_name: medical-staff-service
+    build: ../medical-staff
+    networks:
+      - backend
+    ports:
+      - "8082:8082"
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      message_broker:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  vital-signs:
+    container_name: vital-signs-service
+    build: ../vital-signs-service
+    networks:
+      - backend
+    ports:
+      - "8084:8084"
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      message_broker:
+        condition: service_healthy
+      vital_signs_db:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  integration:
+    container_name: integration-service
+    build: ../integration
+    ports:
+      - "8083:8083"
+    networks:
+      - backend
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      message_broker:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  notification:
+    container_name: notification-service
+    build: ../notification
+    ports:
+      - "8085:8085"
+    networks:
+      - backend
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      message_broker:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  visit:
+    container_name: visit-service
+    build: ../visits-service
+    ports:
+      - "8089:8089"
+    networks:
+      - backend
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      message_broker:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --tries=1 -O- http://127.0.0.1:3100/ready || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - backend
+
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./promtail-config.yml:/etc/promtail/config.yml:ro
+    command: -config.file=/etc/promtail/config.yml
+    depends_on:
+      loki:
+        condition: service_healthy
+    networks:
+      - backend
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      loki:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -q http://localhost:3000/api/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend
+
+  frontend-web:
+    build:
+      context: ../../frontend-web
+    volumes:
+      - ../../frontend-web:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - backend
+
+  ai-worker:
+    build: ../machine-learing
+    image: healthy-ml-env:latest
+    container_name: ml_worker
+    restart: always
+    networks:
+      - backend
+    depends_on:
+      vital_signs_db:
+        condition: service_healthy
+      message_broker:
+        condition: service_healthy
+    environment:
+      - INFLUX_URL=http://vital_signs_db:8086
+      - INFLUX_TOKEN=super-secret-auth-token-123
+      - INFLUX_ORG=health_monitoring
+      - RABBITMQ_URL=amqp://admin:adminpassword@message_broker/
+      - MODELS_DIR=/app/models/
+    volumes:
+      - ../machine-learing/models:/app/models
+
+  ai-trainer:
+    image: healthy-ml-env:latest
+    container_name: ml_trainer
+    command: ["python", "train_lstm_job.py"]
+    profiles: ["tools"]
+    networks:
+      - backend
+    depends_on:
+      vital_signs_db:
+        condition: service_healthy
+    environment:
+      - INFLUX_URL=http://vital_signs_db:8086
+      - INFLUX_TOKEN=super-secret-auth-token-123
+      - INFLUX_ORG=health_monitoring
+      - RABBITMQ_URL=amqp://admin:adminpassword@message_broker/
+    volumes:
+      - ../machine-learing/models:/app/models
+
+  simulator:
+    build: ../simulator
+    image: iot-simulator:latest
+    profiles: ["simulation"]
+    networks:
+      - backend
+    environment:
+      - API_URL=http://integration:8083/api/v1/integration
+
+volumes:
+  postgres:
+  pgadmin:
+  vital_signs_data:

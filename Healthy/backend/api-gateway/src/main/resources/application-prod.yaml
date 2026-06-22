@@ -1,0 +1,35 @@
+spring:
+  config:
+    import: "optional:configserver:http://config-server:8888"
+  cloud:
+    config:
+      fail-fast: true
+      retry:
+        max-attempts: 20
+        initial-interval: 2000
+        multiplier: 1.5
+        max-interval: 10000
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak-server:9090/realms/healthmonitor-realm
+
+medical-staff-service:
+  url: http://medical-staff-service
+
+patient-service:
+  url: http://patient-service
+
+visit-service:
+  url: http://visit-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    hostname: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port}

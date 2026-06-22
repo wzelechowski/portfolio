@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "paths": {
+    "/file-upload": {
+      "name": "/file-upload",
+      "lambdaFunction": "MyLambda",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}

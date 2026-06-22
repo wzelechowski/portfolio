@@ -1,0 +1,42 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cloudsproject-dev-b5d0d-authRole",
+      "UnauthRoleArn": "arn:aws:iam::779846817585:role/amplify-cloudsproject-dev-b5d0d-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::779846817585:role/amplify-cloudsproject-dev-b5d0d-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-cloudsproject-dev-b5d0d-deployment",
+      "UnauthRoleName": "amplify-cloudsproject-dev-b5d0d-unauthRole",
+      "StackName": "amplify-cloudsproject-dev-b5d0d",
+      "StackId": "arn:aws:cloudformation:eu-north-1:779846817585:stack/amplify-cloudsproject-dev-b5d0d/701e5f80-a76c-11ef-8977-0abfb22434ab",
+      "AmplifyAppId": "d1sjpbevj929h5",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-cloudsproject-dev-b5d0d-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "auth": {
+        "cloudsprojectf8de4db7": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d1sjpbevj929h5",
+          "type": "manual"
+        }
+      },
+      "function": {
+        "MyLambda": {
+          "deploymentBucketName": "amplify-cloudsproject-dev-b5d0d-deployment",
+          "s3Key": "amplify-builds/MyLambda-71494b5441365267556d-build.zip"
+        }
+      },
+      "api": {
+        "ApiClouds": {}
+      },
+      "storage": {
+        "cloudsproject8e1c2cd5": {
+          "bucketName": "clouds-project-storage",
+          "region": "eu-north-1"
+        }
+      }
+    }
+  }
+}
