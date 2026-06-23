@@ -55,13 +55,13 @@ A backend application built with Spring Boot, focused on advanced PostgreSQL que
 
 #### 🤖 AI Integrations & Data Processing
 
-**Rently | Github: https://github.com/WiktorGlaner/System-koordynacji-pomocy-humanitarnej-SKPH- **  
+**Rently**  
 An Airbnb-like platform (Spring Boot) extended with an AI module integrating the Groq API for dynamic apartment pricing. *(Developed in a 5-person team project).*
 
-**Plantify | Github: https://github.com/247659/Plantify **  
+**Plantify | Github: https://github.com/247659/Plantify**  
 A web and mobile application (Spring Boot + Flutter) integrated with an external API for plant recognition. Supabase was used as the database backend. *(Developed in a 5-person team project).*
 
-**Video-Sent | https://github.com/CountToFour/Video-Sent **  
+**Video-Sent | https://github.com/CountToFour/Video-Sent**  
 A Python (Django + SQLite) and React.js application for video transcription and intelligent summarization (e.g. phone conversations). *(Developed in a 5-person team project).*
 
 ---
@@ -78,7 +78,7 @@ A complete e-commerce platform built with Node.js, MySQL, and a modern Vue.js fr
 
 #### 👥 Academic & Team Projects
 
-**Humanitarian Aid Coordination System (SKPH)**  
+**Humanitarian Aid Coordination System (SKPH) | Github: https://github.com/WiktorGlaner/System-koordynacji-pomocy-humanitarnej-SKPH-**  
 A large-scale platform built with Java Spring Boot, PostgreSQL, and Vue.js, developed as part of a 15-person team collaboration.
 
 **Sitterproject**  
