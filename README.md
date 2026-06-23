@@ -16,11 +16,11 @@ Posiadam komercyjne doświadczenie w budowaniu skalowalnych systemów, optymaliz
 ### 🚀 Moje Projekty
 
 #### 🌐 Architektura Rozproszona i Mikroserwisy
-* **PolishPizza:** Kompleksowy system zarządzania pizzerią. Zbudowany w oparciu o architekturę mikroserwisową (Java Spring Boot, Spring Cloud: Gateway, Config Server, Eureka). Wykorzystuje RabbitMQ do komunikacji asynchronicznej, PostgreSQL i Redis. Posiada webowy panel admina (React) oraz aplikację mobilną dla klientów/dostawców. Zintegrowany z modułem AI (FastAPI) do personalizacji promocji.
+* **PolishPizza:** Kompleksowy system zarządzania pizzerią. Zbudowany w oparciu o architekturę mikroserwisową (Java Spring Boot, Spring Cloud: Gateway, Config Server, Eureka). Wykorzystuje RabbitMQ do komunikacji asynchronicznej, PostgreSQL i Redis. Posiada webowy panel admina (React) oraz aplikację mobilną dla klientów/dostawców. Zintegrowany z modułem AI (FastAPI) do personalizacji promocji.[View Repository](https://github.com/wzelechowski/PolishPizza)
 * **Healthy:** Rozproszony system IoT do monitorowania parametrów życiowych pacjentów. Analizuje dane strumieniowe w czasie rzeczywistym wykorzystując zaawansowane modele ML i bazę InfluxDB. *(Projekt realizowany w 5-osobowym zespole).*
 
 #### ⚡ Optymalizacja i Wydajność
-* **Sportradar_BE:** Aplikacja backendowa w Spring Boot z ekstremalnym naciskiem na optymalizację zapytań SQL (PostgreSQL). Zaimplementowano unikanie problemu N+1 (Left Join Fetch), eliminację iloczynu kartezjańskiego (Batching) oraz zaawansowane filtrowanie i paginację za pomocą Criteria API. Frontend w Vanilla JS, całość skonteneryzowana w Dockerze.
+* **Sportradar_BE:** Aplikacja backendowa w Spring Boot z ekstremalnym naciskiem na optymalizację zapytań SQL (PostgreSQL). Zaimplementowano unikanie problemu N+1 (Left Join Fetch), eliminację iloczynu kartezjańskiego (Batching) oraz zaawansowane filtrowanie i paginację za pomocą Criteria API. Frontend w Vanilla JS, całość skonteneryzowana w Dockerze. [View Repository](https://github.com/wzelechowski/sportradar_BE)
 
 #### 🤖 Integracje AI i Przetwarzanie Danych
 * **Rently:** Klon platformy Airbnb (Spring Boot) rozbudowany o moduł sztucznej inteligencji integrujący się z API Groq w celu dynamicznej wyceny wynajmu mieszkań. *(Projekt realizowany w 5-osobowym zespole).*
