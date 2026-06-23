@@ -30,7 +30,7 @@ A high-performance Spring Boot backend focused on advanced PostgreSQL query opti
 
 **🩺 Healthy**  
 A distributed IoT-based healthcare system designed for real-time monitoring of patients’ vital signs. The system processes streaming data and applies machine learning models for anomaly detection and health analysis. It uses InfluxDB for time-series data storage and was developed as a multi-service architecture project.  
-🔗 https://github.com/wzelechowski/Healthy
+🔗 https://github.com/247659/Healthy
 
 ---
 
@@ -41,7 +41,7 @@ A distributed IoT-based healthcare system designed for real-time monitoring of p
 **PolishPizza | Github: https://github.com/wzelechowski/PolishPizza**  
 A comprehensive pizzeria management system built using a microservices architecture (Java Spring Boot, Spring Cloud: Gateway, Config Server, Eureka). It uses RabbitMQ for asynchronous communication, PostgreSQL and Redis for data storage. The system includes a React-based admin panel and a mobile application for customers and delivery staff. Integrated with an AI module (FastAPI) for promotion personalization.  
 
-**Healthy**  
+**Healthy | Guthub: https://github.com/247659/Healthy**  
 A distributed IoT system for monitoring patients’ vital signs. It processes real-time streaming data using machine learning models and InfluxDB. *(Developed in a 5-person team project).*
 
 ---
@@ -55,13 +55,13 @@ A backend application built with Spring Boot, focused on advanced PostgreSQL que
 
 #### 🤖 AI Integrations & Data Processing
 
-**Rently**  
+**Rently | Github: https://github.com/WiktorGlaner/System-koordynacji-pomocy-humanitarnej-SKPH- **  
 An Airbnb-like platform (Spring Boot) extended with an AI module integrating the Groq API for dynamic apartment pricing. *(Developed in a 5-person team project).*
 
-**Plantify**  
+**Plantify | Github: https://github.com/247659/Plantify **  
 A web and mobile application (Spring Boot + Flutter) integrated with an external API for plant recognition. Supabase was used as the database backend. *(Developed in a 5-person team project).*
 
-**Video-Sent**  
+**Video-Sent | https://github.com/CountToFour/Video-Sent **  
 A Python (Django + SQLite) and React.js application for video transcription and intelligent summarization (e.g. phone conversations). *(Developed in a 5-person team project).*
 
 ---
