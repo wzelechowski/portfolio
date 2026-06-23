@@ -16,7 +16,7 @@ Posiadam komercyjne doświadczenie w budowaniu skalowalnych systemów, optymaliz
 ### 🚀 Moje Projekty
 
 #### 🌐 Architektura Rozproszona i Mikroserwisy
-* **PolishPizza:** Kompleksowy system zarządzania pizzerią. Zbudowany w oparciu o architekturę mikroserwisową (Java Spring Boot, Spring Cloud: Gateway, Config Server, Eureka). Wykorzystuje RabbitMQ do komunikacji asynchronicznej, PostgreSQL i Redis. Posiada webowy panel admina (React) oraz aplikację mobilną dla klientów/dostawców. Zintegrowany z modułem AI (FastAPI) do personalizacji promocji.[View Repository](https://github.com/wzelechowski/PolishPizza)
+* **PolishPizza:** Kompleksowy system zarządzania pizzerią. Zbudowany w oparciu o architekturę mikroserwisową (Java Spring Boot, Spring Cloud: Gateway, Config Server, Eureka). Wykorzystuje RabbitMQ do komunikacji asynchronicznej, PostgreSQL i Redis. Posiada webowy panel admina (React) oraz aplikację mobilną dla klientów/dostawców. Zintegrowany z modułem AI (FastAPI) do personalizacji promocji. [View Repository](https://github.com/wzelechowski/PolishPizza)
 * **Healthy:** Rozproszony system IoT do monitorowania parametrów życiowych pacjentów. Analizuje dane strumieniowe w czasie rzeczywistym wykorzystując zaawansowane modele ML i bazę InfluxDB. *(Projekt realizowany w 5-osobowym zespole).*
 
 #### ⚡ Optymalizacja i Wydajność
